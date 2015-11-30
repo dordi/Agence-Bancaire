@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 29, 2014 10:12:33 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+  <class name="tp3.model.Client" table="client">
+
+    <id name="id" type="long" column="id">
+      <generator class="native" />
+    </id>
+
+    <property name="cin" type="java.lang.String" column="cin" />
+
+    <property name="firstName" type="java.lang.String" column="first_name" />
+
+    <property name="phoneNumber" type="java.lang.String" column="phone_number" />
+
+    <property name="address" type="java.lang.String" column="address" />
+
+    <property name="lastName" type="java.lang.String" column="last_name" />
+
+    <property name="job" type="java.lang.String" column="job" />
+
+  </class>
+</hibernate-mapping>

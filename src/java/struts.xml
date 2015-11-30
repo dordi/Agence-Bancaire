@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.custom.i18n.resources" value="lang" />
+    
+    <!-- General actions -->
+    <package name="tp3.login" extends="struts-default">
+        <action name="mainActions">
+            <result>/account/listAccounts.jsp</result>
+        </action>
+
+        <action name="Login" class="tp3.action.login.Authentificate" method="login">
+            <result name="success" type="redirectAction">listAccounts</result>
+            <result name="error">/errorPage.jsp</result>
+            <result name="input">/loginPage.jsp</result>
+        </action>
+
+        <action name="Logout" class="tp3.action.login.Authentificate" method="logout">
+            <result name="success">/loginPage.jsp</result>
+            <result name="error">/loginPage.jsp</result>
+            <result name="input">/loginPage.jsp</result>
+        </action>
+    </package>
+
+    <!-- Agent actions -->
+    <package name="tp3.agent" extends="struts-default">
+        
+        <interceptors>
+            <interceptor name="traceMaker" class="tp3.interceptor.TraceMaker"/>
+            <interceptor-stack name="traceStack">
+                <interceptor-ref name="traceMaker"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <action name="createAgentJSP">
+            <result>/agent/createAgent.jsp</result>
+        </action>
+
+        <action name="listAgents" class="tp3.action.agent.ListAgents">
+            <result name="success">/agent/listAgents.jsp</result>
+        </action>
+
+        <action name="AddAgent" class="tp3.action.agent.AddAgent">
+            <interceptor-ref name="traceStack" />
+            <result name="success" type="redirectAction">listAgents</result>
+            <result name="error">/agent/createAgentError.jsp</result>
+            <result name="input">/agent/createAgent.jsp</result>
+        </action>
+    
+        <action name="editAgentInit" class="tp3.action.agent.EditAgentInit">
+            <result name="success">/agent/editAgent.jsp</result>
+        </action>
+    
+        <action name="editAgent" class="tp3.action.agent.EditAgent">
+            <interceptor-ref name="traceStack" />
+            <result name="success">/agent/listAgents.jsp</result>
+            <result name="error">/agent/editAgentError.jsp</result>
+            <result name="input">/agent/editAgent.jsp</result>
+        </action>
+
+        <action name="deleteAgent" class="tp3.action.agent.DeleteAgent">
+            <interceptor-ref name="traceStack" />
+            <result name="*" type="redirectAction">listAgent</result>
+        </action>
+    </package>
+  
+    <!-- Client actions -->
+    <package name="tp3.client" extends="struts-default">
+        
+        <interceptors>
+            <interceptor name="traceMaker" class="tp3.interceptor.TraceMaker"/>
+            <interceptor-stack name="traceStack">
+                <interceptor-ref name="traceMaker"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        
+        <action name="createClientJSP">
+            <result>/client/createClient.jsp</result>
+        </action>
+
+        <action name="listClients" class="tp3.action.client.ListClients">
+            <result name="success">/client/listClients.jsp</result>
+            <result name="error">index.jsp</result>
+        </action>
+
+        <action name="AddClient" class="tp3.action.client.AddClient">
+            <interceptor-ref name="traceStack" />
+            <result name="success">/client/createClientSuccess.jsp</result>
+            <result name="error">/client/createClientError.jsp</result>
+            <result name="input">/client/createClient.jsp</result>
+            <result name="login">index.jsp</result>
+        </action>
+    
+        <action name="editClientInit" class="tp3.action.client.EditClientInit">
+            <result name="success">/client/editClient.jsp</result>
+        </action>
+    
+        <action name="editClient" class="tp3.action.client.EditClient">
+            <interceptor-ref name="traceStack" />
+            <result name="success">/client/listClients.jsp</result>
+            <result name="error">/client/editClientError.jsp</result>
+            <result name="input">/client/editClient.jsp</result>
+        </action>
+
+        <action name="deleteClient" class="tp3.action.client.DeleteClient">
+            <interceptor-ref name="traceStack" />
+            <result name="*" type="redirectAction">listClients</result>
+        </action>
+
+    </package>
+
+  
+    <!-- Account actions -->
+    <package name="tp3.account" extends="struts-default">
+        
+        <interceptors>
+            <interceptor name="traceMaker" class="tp3.interceptor.TraceMaker"/>
+            <interceptor-stack name="traceStack">
+                <interceptor-ref name="traceMaker"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        
+        <action name="listAccounts" class="tp3.action.account.ListAccounts">
+            <result name="success">/account/listAccounts.jsp</result>
+        </action>
+
+        <action name="AddAccountInit" class="tp3.action.account.AddAccountInit">
+            <result name="success">/account/addAccount.jsp</result>
+        </action>
+
+        <action name="AddAccount" class="tp3.action.account.AddAccount">
+            <interceptor-ref name="traceStack" />
+            <result name="success" type="redirectAction">listAccounts.action</result>
+            <result name="error">/account/addAccountError.jsp</result>
+            <result name="input">/account/addAccount.jsp</result>
+        </action>
+
+        <action name="deleteAccount" class="tp3.action.account.DeleteAccount">
+            <interceptor-ref name="traceStack" />
+            <result name="error">/account/deleteAccountError.jsp</result>
+            <result name="success" type="redirectAction">listAccounts.action</result>
+            <result name="*" type="redirectAction">deleteAccountInit.action</result>
+        </action>
+
+        <action name="editAccountInit" class="tp3.action.account.EditAccountInit">
+            <result name="success">/account/editAccount.jsp</result>
+        </action>
+
+        <action name="editAccount" class="tp3.action.account.EditAccount">
+            <interceptor-ref name="traceStack" />
+            <result name="error">/account/editAccountError.jsp</result>
+            <result name="success" type="redirectAction">listAccounts.action</result>
+            <result name="*" type="redirectAction">editAccountInit.action</result>
+        </action>
+    </package>
+
+</struts> 

@@ -1,0 +1,49 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+  <field name="client.firstName">
+    <field-validator type="requiredstring">
+      <message>The first name is required</message>
+    </field-validator>
+  </field>
+
+  <field name="client.lastName">
+    <field-validator type="requiredstring">
+      <message>The last name is required</message>
+    </field-validator>
+  </field>
+
+  <field name="client.cin">
+    <field-validator type="required">
+      <message>The cin is required</message>
+    </field-validator>
+
+    <field-validator type="regex">
+      <param name="fieldName">client.cin</param>
+      <param name="expression">
+        <![CDATA[[0-9]{8,8}]]>
+      </param>
+      <message>The cin is not valid</message>
+    </field-validator>
+  </field>
+
+  <field name="client.address">
+    <field-validator type="requiredstring">
+      <message>The address is required</message>
+    </field-validator>
+  </field>
+
+  <field name="client.phoneNumber">
+    <field-validator type="required">
+      <message>The phone number is required</message>
+    </field-validator>
+    <field-validator type="regex">
+      <param name="fieldName">client.phoneNumber</param>
+      <param name="expression">
+        <![CDATA[(\s|[0-9]|\)|\(|\+){8,16}]]>
+      </param>
+      <message>The phone number is not valid</message>
+    </field-validator>
+  </field>
+
+</validators>
